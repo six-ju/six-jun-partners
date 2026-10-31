@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>six_jun · Partners Dashboard</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+:root{--bg:#eeeef1;--panel:#f6f6f8;--card:#fff;--ink:#111114;--sub:#6b6b76;--line:#e7e7ec;--acc:#f05a28;--acc2:#ff8a5c;--ok:#10b981;--bad:#ef4444;--pill:#111114;--shadow:0 1px 2px rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.04)}
+.dark{--bg:#0d0d10;--panel:#141418;--card:#1b1b20;--ink:#f4f4f6;--sub:#9a9aa6;--line:#2a2a31;--pill:#f4f4f6;--shadow:0 1px 2px rgba(0,0,0,.4)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Pretendard,-apple-system,'Malgun Gothic',sans-serif;transition:background .3s,color .3s}
+.shell{max-width:1320px;margin:22px auto;background:var(--panel);border-radius:28px;padding:18px 22px 28px;min-height:calc(100vh - 44px);box-shadow:var(--shadow)}
+.top{display:flex;align-items:center;gap:14px}
+.logo{display:flex;align-items:center;gap:8px;background:var(--card);border-radius:999px;padding:7px 16px 7px 8px;font-weight:800;box-shadow:var(--shadow)}
+.logo i{width:28px;height:28px;border-radius:50%;background:var(--acc);color:#fff;display:flex;align-items:center;justify-content:center;font-style:normal;font-weight:900}
+.nav{flex:1;display:flex;justify-content:center}.nav div{display:flex;gap:4px;background:var(--card);border-radius:999px;padding:5px;box-shadow:var(--shadow)}
+.nav button{border:0;background:none;color:var(--ink);font:500 14px Pretendard,sans-serif;padding:8px 16px;border-radius:999px;cursor:pointer}
+.nav button.on{background:var(--pill);color:var(--panel)}
+.right{display:flex;gap:10px;align-items:center}.icons{display:flex;gap:4px;background:var(--card);border-radius:999px;padding:6px 10px;box-shadow:var(--shadow);font-size:15px}
+.icons span{padding:2px 6px;color:var(--sub)}.prof{display:flex;gap:8px;align-items:center;background:var(--card);border-radius:999px;padding:6px 14px 6px 6px;box-shadow:var(--shadow)}
+.prof b{display:block;font-size:13px}.prof small{color:var(--sub);font-size:11px}.av{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--acc),#ffb38a)}
+.body{display:flex;gap:18px;margin-top:22px}
+.rail{display:flex;flex-direction:column;gap:14px}.rail div{background:var(--card);border-radius:999px;padding:8px 6px;display:flex;flex-direction:column;gap:6px;box-shadow:var(--shadow)}
+.rail button{width:34px;height:34px;border-radius:50%;border:0;background:none;color:var(--sub);cursor:pointer;font-size:15px}.rail button.on{background:var(--pill);color:var(--panel)}
+.main{flex:1;min-width:0}
+.hd{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:16px}.hd h1{margin:0;font-size:32px;letter-spacing:-.5px}.hd p{margin:4px 0 0;color:var(--sub);font-size:13.5px}
+.btn{background:var(--pill);color:var(--panel);border:0;border-radius:999px;padding:9px 16px;font:600 13px Pretendard,sans-serif;cursor:pointer}
+.grid{display:grid;gap:16px}.g4{grid-template-columns:repeat(4,1fr)}.g3{grid-template-columns:2fr 1fr}.g2{grid-template-columns:1fr 1fr}
+@media(max-width:1000px){.g4{grid-template-columns:repeat(2,1fr)}.g3,.g2{grid-template-columns:1fr}.nav{display:none}.rail{display:none}}
+.card{background:var(--card);border-radius:22px;padding:18px 20px;box-shadow:var(--shadow);transition:transform .2s}.card:hover{transform:translateY(-3px)}
+.card h3{margin:0 0 12px;font-size:15px;display:flex;justify-content:space-between;align-items:center}.card h3 small{color:var(--sub);font-weight:500;font-size:12px}
+.kpi .t{color:var(--sub);font-size:13px;display:flex;justify-content:space-between}.kpi .t em{font-style:normal;width:30px;height:30px;border-radius:10px;background:var(--bg);display:flex;align-items:center;justify-content:center}
+.kpi .v{font-size:28px;font-weight:800;margin:8px 0 4px;letter-spacing:-.5px}.kpi .d{font-size:12.5px;color:var(--ok)}.kpi .d.neg{color:var(--bad)}.kpi .d.mut{color:var(--sub)}
+.hero{background:linear-gradient(135deg,#1a1a1f,#2b2b33);color:#fff}.hero .t{color:#c9c9d3}.hero .t em{background:rgba(255,255,255,.1)}
+.bar{height:10px;background:var(--bg);border-radius:999px;overflow:hidden;margin:10px 0 6px}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--acc),var(--acc2));border-radius:999px}
+table{width:100%;border-collapse:collapse;font-size:13.5px}th{text-align:left;color:var(--sub);font-weight:500;font-size:12px;padding:8px 6px;border-bottom:1px solid var(--line)}td{padding:10px 6px;border-bottom:1px solid var(--line)}
+td.n{text-align:right;font-variant-numeric:tabular-nums}th.n{text-align:right}
+.tag{display:inline-block;font-size:11px;font-weight:700;border-radius:999px;padding:2px 8px;background:var(--bg)}
+.a20{background:#ffe4dc;color:#c2410c}.a30{background:#ffedd5;color:#b45309}.a40{background:#dbeafe;color:#1d4ed8}.a50{background:#f3e8dc;color:#8a4b0f}
+.dark .a20,.dark .a30,.dark .a40,.dark .a50{background:#2a2a31}
+.empty{color:var(--sub);font-size:13px;text-align:center;padding:26px 0}
+.sec{display:none}.sec.on{display:block;animation:f .35s ease}@keyframes f{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+.calc label{display:flex;justify-content:space-between;font-size:13px;color:var(--sub);margin:10px 0 4px}.calc input[type=range]{width:100%;accent-color:var(--acc)}
+.big{font-size:34px;font-weight:900;color:var(--acc)}
+.lock{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:9}.lock .card{width:340px;text-align:center}
+.lock input{width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--line);font:15px Pretendard,sans-serif;margin:14px 0 10px;background:var(--panel);color:var(--ink)}
+.demo{background:#fff4ec;color:#c2410c;border-radius:12px;padding:8px 12px;font-size:12.5px;margin-bottom:12px}
+.sched{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}.sched div{background:var(--bg);border-radius:14px;padding:10px;text-align:center;font-size:12px;color:var(--sub)}.sched div b{display:block;color:var(--ink);font-size:14px;margin-bottom:4px}
+.sched .cp{background:var(--pill);color:var(--panel)}.sched .cp b{color:var(--panel)}
+</style>
+</head>
+<body>
+<div class="lock" id="lock" style="display:none"><div class="card"><div class="logo" style="justify-content:center;box-shadow:none"><i>V</i>Partners</div>
+<input id="pw" type="password" placeholder="비밀번호" autocomplete="current-password"><button class="btn" style="width:100%" onclick="unlock()">열기</button><p id="lockmsg" style="color:var(--bad);font-size:12px;min-height:16px"></p></div></div>
+
+<div class="shell">
+  <div class="top">
+    <div class="logo"><i>S</i>six_jun</div>
+    <div class="nav"><div id="nav">
+      <button class="on" data-s="overview">Overview</button><button data-s="products">Products</button><button data-s="posts">Posts</button><button data-s="earnings">Earnings</button><button data-s="forecast">Forecast</button>
+    </div></div>
+    <div class="right"><div class="icons"><span>⌕</span><span>🔔</span><span>ⓘ</span></div><div class="prof"><div class="av"></div><div><b>입터진 다이어터</b><small id="upd">-</small></div></div></div>
+  </div>
+  <div class="body">
+    <div class="rail"><div><button id="lightB" class="on" onclick="theme(0)">☀</button><button id="darkB" onclick="theme(1)">☾</button></div>
+      <div><button data-s="overview" class="on">▦</button><button data-s="products">◫</button><button data-s="posts">✎</button><button data-s="earnings">₩</button><button data-s="forecast">↗</button></div></div>
+    <div class="main">
+      <div id="demo" class="demo" style="display:none">DEMO 데이터예요. 실제 실적이 쌓이면 자동으로 바뀌어요.</div>
+
+      <section class="sec on" id="s-overview">
+        <div class="hd"><div><h1>Overview</h1><p>쿠팡 파트너스 실적 한눈에 보기 · 전일 데이터는 매일 오후 4시 전후 반영</p></div><button class="btn" onclick="go('forecast')">＋ 수익 예측</button></div>
+        <div class="grid g4">
+          <div class="card kpi hero"><div class="t">이번 달 수익<em>₩</em></div><div class="v" id="k-month">-</div><div class="d mut" id="k-month-d">-</div></div>
+          <div class="card kpi"><div class="t">어제 수익<em>◔</em></div><div class="v" id="k-yday">-</div><div class="d" id="k-yday-d">-</div></div>
+          <div class="card kpi"><div class="t">이번 달 클릭<em>↗</em></div><div class="v" id="k-click">-</div><div class="d mut" id="k-click-d">-</div></div>
+          <div class="card kpi"><div class="t">전환율<em>%</em></div><div class="v" id="k-conv">-</div><div class="d mut" id="k-conv-d">-</div></div>
+        </div>
+        <div class="grid g3" style="margin-top:16px">
+          <div class="card"><h3>일별 클릭 · 수익 <small>최근 30일</small></h3><canvas id="c-daily" height="120"></canvas></div>
+          <div class="card"><h3>최종 승인까지 <small>누적 판매 15만원</small></h3>
+            <div class="big" id="k-appr">-</div><div class="bar"><i id="b-appr" style="width:0%"></i></div><div style="font-size:12.5px;color:var(--sub)" id="k-appr-d">-</div>
+            <h3 style="margin-top:22px">이번 달 예상 수익 <small>최근 7일 평균 기준</small></h3><div class="big" id="k-proj">-</div><div style="font-size:12.5px;color:var(--sub)" id="k-proj-d">-</div></div>
+        </div>
+        <div class="grid g2" style="margin-top:16px">
+          <div class="card"><h3>연령대 글별 성과 <small>상품 링크 기준</small></h3><canvas id="c-age" height="160"></canvas></div>
+          <div class="card"><h3>이번 주 발행 스케줄 <small>월·수·금·일 = 쿠팡 이슈템</small></h3><div class="sched" id="sched"></div>
+            <h3 style="margin-top:18px">TOP 상품 <small>클릭순</small></h3><div id="top3"></div></div>
+        </div>
+      </section>
+
+      <section class="sec" id="s-products">
+        <div class="hd"><div><h1>Products</h1><p>상품별 클릭 · 주문 · 수익 · 전환율</p></div></div>
+        <div class="grid g3"><div class="card"><h3>상품별 실적 <small id="p-range"></small></h3><div id="ptable"></div></div>
+          <div class="card"><h3>카테고리 비중</h3><canvas id="c-cat" height="220"></canvas></div></div>
+      </section>
+
+      <section class="sec" id="s-posts">
+        <div class="hd"><div><h1>Posts</h1><p>쿠팡 이슈템 글과 링크 성과</p></div></div>
+        <div class="card"><div id="posts"></div></div>
+      </section>
+
+      <section class="sec" id="s-earnings">
+        <div class="hd"><div><h1>Earnings</h1><p>월별 수익 · 정산 기준 (월 1만원 이상 + 최종승인 → 익익월 15일 지급)</p></div></div>
+        <div class="grid g3"><div class="card"><h3>월별 수익 · 판매금액 <small>최근 12개월</small></h3><canvas id="c-month" height="130"></canvas></div>
+          <div class="card"><h3>누적</h3><div class="kpi"><div class="t">총 수익</div><div class="v" id="e-total">-</div><div class="t" style="margin-top:12px">총 판매금액</div><div class="v" id="e-gmv">-</div><div class="t" style="margin-top:12px">총 주문</div><div class="v" id="e-ord">-</div></div></div></div>
+      </section>
+
+      <section class="sec" id="s-forecast">
+        <div class="hd"><div><h1>Forecast</h1><p>얼마를 벌 수 있을까? 값을 움직여 보세요 (기본값은 내 실제 데이터, 없으면 가정치)</p></div></div>
+        <div class="grid g2"><div class="card calc">
+          <label>하루 링크 클릭 <b id="v-clk"></b></label><input type="range" id="f-clk" min="0" max="500" step="5">
+          <label>전환율 (구매/클릭) <b id="v-cv"></b></label><input type="range" id="f-cv" min="0" max="15" step="0.5">
+          <label>평균 주문 금액 <b id="v-aov"></b></label><input type="range" id="f-aov" min="5000" max="150000" step="1000">
+          <label>수수료율 <b id="v-rate"></b></label><input type="range" id="f-rate" min="1" max="5" step="0.5">
+          <p style="font-size:12px;color:var(--sub)" id="f-src"></p></div>
+          <div class="card"><h3>예상 수익</h3><div class="kpi"><div class="t">하루</div><div class="v" id="f-day">-</div><div class="t" style="margin-top:10px">한 달 (30일)</div><div class="big" id="f-mon">-</div><div class="t" style="margin-top:10px">1년</div><div class="v" id="f-yr">-</div></div>
+            <div style="font-size:12.5px;color:var(--sub);margin-top:8px" id="f-appr"></div></div></div>
+      </section>
+    </div>
+  </div>
+</div>
+<script>
+const W = n => '₩' + Math.round(n || 0).toLocaleString('ko-KR'), N = n => Math.round(n || 0).toLocaleString('ko-KR');
+let D = null, charts = [];
+function theme(d) { document.documentElement.classList.toggle('dark', !!d); document.getElementById('darkB').classList.toggle('on', !!d); document.getElementById('lightB').classList.toggle('on', !d); localStorage.setItem('dk', d ? 1 : 0); if (D) render(D); }
+function go(s) { document.querySelectorAll('.sec').forEach(x => x.classList.toggle('on', x.id === 's-' + s)); document.querySelectorAll('[data-s]').forEach(b => b.classList.toggle('on', b.dataset.s === s)); }
+document.querySelectorAll('[data-s]').forEach(b => b.onclick = () => go(b.dataset.s));
+async function decrypt(pw, enc) {
+  const b = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
+  const km = await crypto.subtle.importKey('raw', new TextEncoder().encode(pw), 'PBKDF2', false, ['deriveKey']);
+  const key = await crypto.subtle.deriveKey({ name: 'PBKDF2', salt: b(enc.salt), iterations: enc.iter, hash: 'SHA-256' }, km, { name: 'AES-GCM', length: 256 }, false, ['decrypt']);
+  const pt = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: b(enc.iv) }, key, b(enc.data));
+  return JSON.parse(new TextDecoder().decode(pt));
+}
+async function unlock() {
+  const pw = document.getElementById('pw').value;
+  try { const enc = await (await fetch('data.enc.json?t=' + Date.now())).json(); const d = await decrypt(pw, enc); sessionStorage.setItem('pw', pw); document.getElementById('lock').style.display = 'none'; render(d); }
+  catch (e) { document.getElementById('lockmsg').textContent = '비밀번호가 맞지 않아요'; }
+}
+document.getElementById('pw').addEventListener('keydown', e => { if (e.key === 'Enter') unlock(); });
+function css(v) { return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+function render(d) {
+  D = d; charts.forEach(c => c.destroy()); charts = [];
+  document.getElementById('demo').style.display = d.demo ? 'block' : 'none';
+  document.getElementById('upd').textContent = '업데이트 ' + (d.lastUpdated || '-');
+  const days = d.days || [], last30 = days.slice(-30), yd = days[days.length - 1] || {}, pv = days[days.length - 2] || {};
+  const month = d.thisMonth || {}, ink = css('--ink'), sub = css('--sub'), line = css('--line'), acc = css('--acc');
+  Chart.defaults.font.family = 'Pretendard'; Chart.defaults.color = sub;
+  document.getElementById('k-month').textContent = W(month.commission);
+  document.getElementById('k-month-d').textContent = `판매금액 ${W(month.gmv)} · 주문 ${N(month.orderCount)}건`;
+  document.getElementById('k-yday').textContent = W(yd.commission);
+  const dd = (yd.commission || 0) - (pv.commission || 0); const e = document.getElementById('k-yday-d');
+  e.textContent = (dd >= 0 ? '▲ ' : '▼ ') + W(Math.abs(dd)) + ' 전일 대비 · ' + (yd.key || ''); e.className = 'd' + (dd < 0 ? ' neg' : '');
+  document.getElementById('k-click').textContent = N(month.clickCount);
+  document.getElementById('k-click-d').textContent = `어제 ${N(yd.clickCount)}회`;
+  const conv = month.clickCount ? month.orderCount / month.clickCount * 100 : 0;
+  document.getElementById('k-conv').textContent = conv.toFixed(2) + '%';
+  document.getElementById('k-conv-d').textContent = `주문 ${N(month.orderCount)} / 클릭 ${N(month.clickCount)}`;
+  const cumG = d.cumulativeGmv || 0, ap = Math.min(100, cumG / 150000 * 100);
+  document.getElementById('k-appr').textContent = ap.toFixed(0) + '%'; document.getElementById('b-appr').style.width = ap + '%';
+  document.getElementById('k-appr-d').textContent = `누적 판매 ${W(cumG)} / ₩150,000` + (d.approved ? ' · 최종 승인 완료' : '');
+  const l7 = days.slice(-7), avg7 = l7.reduce((a, u) => a + (u.commission || 0), 0) / Math.max(1, l7.length);
+  const now = new Date(Date.now() + 9 * 3600e3), dim = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() + 1, 0)).getUTCDate(), left = dim - now.getUTCDate() + 1;
+  document.getElementById('k-proj').textContent = W((month.commission || 0) + avg7 * left);
+  document.getElementById('k-proj-d').textContent = `하루 평균 ${W(avg7)} × 남은 ${left}일 + 현재 ${W(month.commission)}`;
+  const grid = { color: line }, mk = (id, cfg) => { const c = new Chart(document.getElementById(id), cfg); charts.push(c); };
+  mk('c-daily', { data: { labels: last30.map(u => u.key.slice(5)), datasets: [
+    { type: 'bar', label: '클릭', data: last30.map(u => u.clickCount), backgroundColor: css('--line'), borderRadius: 6, yAxisID: 'y' },
+    { type: 'line', label: '수익', data: last30.map(u => u.commission), borderColor: acc, backgroundColor: acc + '22', fill: true, tension: .4, pointRadius: 0, yAxisID: 'y1' }] },
+    options: { plugins: { legend: { labels: { usePointStyle: true } } }, scales: { x: { grid: { display: false } }, y: { grid, beginAtZero: true }, y1: { position: 'right', grid: { display: false }, beginAtZero: true, ticks: { callback: v => '₩' + v.toLocaleString() } } } } });
+  const ages = ['20대', '30대', '40대', '50대'], ac = ['#ff5f45', '#ff9300', '#0095e9', '#b85c00'], ag = d.byAge || {};
+  mk('c-age', { type: 'bar', data: { labels: ages, datasets: [{ label: '클릭', data: ages.map(a => ag[a]?.clickCount || 0), backgroundColor: ac.map(c => c + '55'), borderRadius: 10 }, { label: '수익', data: ages.map(a => ag[a]?.commission || 0), backgroundColor: ac, borderRadius: 10 }] }, options: { plugins: { legend: { labels: { usePointStyle: true } } }, scales: { x: { grid: { display: false } }, y: { grid, beginAtZero: true } } } });
+  const wd = ['일', '월', '화', '수', '목', '금', '토'], cpDay = { 1: '20대', 3: '30대', 5: '40대', 0: '50대' }, base = new Date(now); base.setUTCDate(now.getUTCDate() - ((now.getUTCDay() + 6) % 7));
+  document.getElementById('sched').innerHTML = [1, 2, 3, 4, 5, 6, 0].map((w, i) => { const dt = new Date(base.getTime() + i * 86400e3); return `<div class="${cpDay[w] ? 'cp' : ''}"><b>${wd[w]} ${dt.getUTCDate()}</b>${cpDay[w] ? cpDay[w] + ' 이슈템' : '맛집 글'}</div>`; }).join('');
+  const prods = (d.products || []).slice().sort((a, b) => (b.clickCount || 0) - (a.clickCount || 0));
+  document.getElementById('top3').innerHTML = prods.length ? prods.slice(0, 3).map((p, i) => `<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid ${line};font-size:13.5px"><span>${i + 1}. ${p.name}</span><b>${N(p.clickCount)}회 · ${W(p.commission)}</b></div>`).join('') : '<div class="empty">아직 클릭 데이터가 없어요</div>';
+  document.getElementById('p-range').textContent = d.productRange || '';
+  document.getElementById('ptable').innerHTML = prods.length ? `<table><tr><th>상품</th><th>글</th><th class="n">클릭</th><th class="n">주문</th><th class="n">전환율</th><th class="n">수익</th></tr>${prods.map(p => `<tr><td>${p.name}</td><td>${p.age ? `<span class="tag a${p.age.slice(0, 2)}">${p.age}</span>` : '-'}</td><td class="n">${N(p.clickCount)}</td><td class="n">${N(p.orderCount)}</td><td class="n">${p.clickCount ? (p.orderCount / p.clickCount * 100).toFixed(1) : '0.0'}%</td><td class="n">${W(p.commission)}</td></tr>`).join('')}</table>` : '<div class="empty">상품 실적이 생기면 여기에 표시돼요</div>';
+  const cats = d.categories || [];
+  mk('c-cat', { type: 'doughnut', data: { labels: cats.length ? cats.map(c => c.name) : ['데이터 없음'], datasets: [{ data: cats.length ? cats.map(c => c.gmv || c.clickCount || 0) : [1], backgroundColor: cats.length ? ['#f05a28', '#ff8a5c', '#ffb38a', '#111114', '#6b6b76', '#c9c9d3'] : [line], borderWidth: 0 }] }, options: { cutout: '68%', plugins: { legend: { position: 'bottom', labels: { usePointStyle: true } } } } });
+  document.getElementById('posts').innerHTML = (d.posts || []).length ? `<table><tr><th>날짜</th><th>글</th><th>연령</th><th>상태</th><th class="n">링크</th><th class="n">클릭</th><th class="n">수익</th></tr>${d.posts.map(p => `<tr><td>${p.date}</td><td>${p.title}</td><td><span class="tag a${p.age.slice(0, 2)}">${p.age}</span></td><td>${p.status}</td><td class="n">${p.links}</td><td class="n">${N(p.clickCount)}</td><td class="n">${W(p.commission)}</td></tr>`).join('')}</table>` : '<div class="empty">아직 글이 없어요</div>';
+  const months = d.months || [];
+  mk('c-month', { data: { labels: months.map(m => m.key), datasets: [{ type: 'bar', label: '수익', data: months.map(m => m.commission), backgroundColor: acc, borderRadius: 8, yAxisID: 'y' }, { type: 'line', label: '판매금액', data: months.map(m => m.gmv), borderColor: ink, tension: .4, pointRadius: 2, yAxisID: 'y1' }] }, options: { plugins: { legend: { labels: { usePointStyle: true } } }, scales: { x: { grid: { display: false } }, y: { grid, beginAtZero: true }, y1: { position: 'right', grid: { display: false }, beginAtZero: true } } } });
+  document.getElementById('e-total').textContent = W(months.reduce((a, m) => a + (m.commission || 0), 0));
+  document.getElementById('e-gmv').textContent = W(months.reduce((a, m) => a + (m.gmv || 0), 0));
+  document.getElementById('e-ord').textContent = N(months.reduce((a, m) => a + (m.orderCount || 0), 0)) + '건';
+  const l30c = last30.reduce((a, u) => a + (u.clickCount || 0), 0), l30o = last30.reduce((a, u) => a + (u.orderCount || 0), 0), l30g = last30.reduce((a, u) => a + (u.gmv || 0), 0);
+  const real = l30c > 0 && l30o > 0;
+  const f = { clk: real ? Math.round(l30c / 30) : 30, cv: real ? +(l30o / l30c * 100).toFixed(1) : 3, aov: real ? Math.round(l30g / l30o / 1000) * 1000 : 30000, rate: 3 };
+  document.getElementById('f-src').textContent = real ? '기본값: 최근 30일 내 실제 평균' : '기본값은 가정치예요 (실적이 쌓이면 실제 평균으로 바뀜). 수수료율 3%는 쿠팡 파트너스 기본 비율';
+  for (const [k, v] of Object.entries(f)) document.getElementById('f-' + k).value = v;
+  calc();
+}
+function calc() {
+  const g = k => +document.getElementById('f-' + k).value, clk = g('clk'), cv = g('cv'), aov = g('aov'), rate = g('rate');
+  document.getElementById('v-clk').textContent = N(clk) + '회'; document.getElementById('v-cv').textContent = cv + '%'; document.getElementById('v-aov').textContent = W(aov); document.getElementById('v-rate').textContent = rate + '%';
+  const day = clk * cv / 100 * aov * rate / 100;
+  document.getElementById('f-day').textContent = W(day); document.getElementById('f-mon').textContent = W(day * 30); document.getElementById('f-yr').textContent = W(day * 365);
+  const gmvDay = clk * cv / 100 * aov; document.getElementById('f-appr').textContent = gmvDay > 0 ? `이 속도면 최종 승인(누적 판매 15만원)까지 약 ${Math.ceil(Math.max(0, 150000 - (D?.cumulativeGmv || 0)) / gmvDay)}일` : '';
+}
+['clk', 'cv', 'aov', 'rate'].forEach(k => document.getElementById('f-' + k).addEventListener('input', calc));
+if (localStorage.getItem('dk') === '1') theme(1);
+window.addEventListener('load', async () => {
+  if (window.__DATA__) return render(window.__DATA__);
+  const pw = sessionStorage.getItem('pw');
+  if (pw) { try { const enc = await (await fetch('data.enc.json?t=' + Date.now())).json(); return render(await decrypt(pw, enc)); } catch (e) {} }
+  document.getElementById('lock').style.display = 'flex';
+});
+</script>
+</body>
+</html>
